@@ -1,0 +1,846 @@
+[
+    {
+        "id": "7e38d721ab7dda20",
+        "type": "tab",
+        "label": "PVOptimFlow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3651cfcb6ae5c30d",
+        "type": "debug",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1410,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e214da16ea494283",
+        "type": "switch",
+        "z": "7e38d721ab7dda20",
+        "name": "ON_Check_Device",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "AC",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "HT2",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "HT1",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "WH",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "3de00c49f3cef9c5"
+            ],
+            [
+                "d2a8347a6be92751"
+            ],
+            [
+                "3b2e749a3733564b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3de00c49f3cef9c5",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "AC_switch_on",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 60,
+        "wires": [
+            [
+                "e816e5ef1e6b6d0b"
+            ]
+        ]
+    },
+    {
+        "id": "d59c9b9c3f55b237",
+        "type": "switch",
+        "z": "7e38d721ab7dda20",
+        "name": "OFF_Check_Device",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "AC",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "HT2",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "HT1",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "WH",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "6b9fdf53e3f4e8e9"
+            ],
+            [
+                "ecb3f9198404996b"
+            ],
+            [
+                "09f95d8b12f1b9a1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6b9fdf53e3f4e8e9",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "AC_switch_off",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 120,
+        "wires": [
+            [
+                "e816e5ef1e6b6d0b"
+            ]
+        ]
+    },
+    {
+        "id": "f77f9c6887d2485a",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "Read KP115_1",
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "getMeterInfo",
+        "payloadType": "str",
+        "x": 100,
+        "y": 620,
+        "wires": [
+            [
+                "0038bd8113aec319"
+            ]
+        ]
+    },
+    {
+        "id": "5a9af48fd39a01f5",
+        "type": "function",
+        "z": "7e38d721ab7dda20",
+        "name": "KP115_1_metering",
+        "func": "var newMsg={ payload: msg.payload};\nnewMsg.payload[\"id_sensor\"]=\"KP115_1\";\nnewMsg.topic='KP115_1';\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 620,
+        "wires": [
+            [
+                "48a21a61322e9d19"
+            ]
+        ]
+    },
+    {
+        "id": "4ccd7db51a6b99c1",
+        "type": "switch",
+        "z": "7e38d721ab7dda20",
+        "name": "switch_on_off",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 373,
+        "y": 273,
+        "wires": [
+            [
+                "e214da16ea494283"
+            ],
+            [
+                "d59c9b9c3f55b237"
+            ]
+        ]
+    },
+    {
+        "id": "9f2898c125a1ce19",
+        "type": "function",
+        "z": "7e38d721ab7dda20",
+        "name": "HS110_1_metering",
+        "func": "var newMsg={ payload: msg.payload};\nnewMsg.payload[\"id_sensor\"]=\"HS110_1\";\nnewMsg.topic='HS110_1';\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "48a21a61322e9d19"
+            ]
+        ]
+    },
+    {
+        "id": "d2a8347a6be92751",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "HT2_switch_on",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 914,
+        "y": 187,
+        "wires": [
+            [
+                "6f6166aeeadd5e14"
+            ]
+        ]
+    },
+    {
+        "id": "ecb3f9198404996b",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "HT2_switch_off",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 913,
+        "y": 234,
+        "wires": [
+            [
+                "6f6166aeeadd5e14"
+            ]
+        ]
+    },
+    {
+        "id": "e3cbfc13944ba148",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 900,
+        "wires": [
+            [
+                "e1bfc00380913975"
+            ]
+        ]
+    },
+    {
+        "id": "bdecabc05243d470",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "7200",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 1080,
+        "wires": [
+            [
+                "86703a34bdfbe31e"
+            ]
+        ]
+    },
+    {
+        "id": "5dabfd50f8111a1f",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "Read HS110_1",
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "getMeterInfo",
+        "payloadType": "str",
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "0711468ae22abbc3"
+            ]
+        ]
+    },
+    {
+        "id": "60604f953eb0d04c",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "Read KP115_2",
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "getMeterInfo",
+        "payloadType": "str",
+        "x": 100,
+        "y": 780,
+        "wires": [
+            [
+                "81acb05ae456bc31"
+            ]
+        ]
+    },
+    {
+        "id": "b9027ad4556203e2",
+        "type": "function",
+        "z": "7e38d721ab7dda20",
+        "name": "KP115_2_metering",
+        "func": "var newMsg={ payload: msg.payload};\nnewMsg.payload[\"id_sensor\"]=\"KP115_2\";\nnewMsg.topic='KP115_2';\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 780,
+        "wires": [
+            [
+                "48a21a61322e9d19"
+            ]
+        ]
+    },
+    {
+        "id": "48a21a61322e9d19",
+        "type": "join",
+        "z": "7e38d721ab7dda20",
+        "name": "Join_readings",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 860,
+        "y": 700,
+        "wires": [
+            [
+                "7924314b991801c6"
+            ]
+        ]
+    },
+    {
+        "id": "7924314b991801c6",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "app_monitor",
+        "pyfile": "app_monitor.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1090,
+        "y": 700,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "e1bfc00380913975",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "inverter",
+        "pyfile": "inverter.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 360,
+        "y": 900,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "8b1d97f75ae72b6c",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "app_scheduler",
+        "pyfile": "app_scheduler.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 160,
+        "y": 240,
+        "wires": [
+            [
+                "4ccd7db51a6b99c1",
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "86703a34bdfbe31e",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "open_weather",
+        "pyfile": "open_weather.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 360,
+        "y": 1080,
+        "wires": [
+            [
+                "44cf2eb2b95b65aa"
+            ]
+        ]
+    },
+    {
+        "id": "0038bd8113aec319",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "AC",
+        "device": "192.168.0.156",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getMeterInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 330,
+        "y": 620,
+        "wires": [
+            [
+                "5a9af48fd39a01f5"
+            ]
+        ]
+    },
+    {
+        "id": "e816e5ef1e6b6d0b",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "AC",
+        "device": "192.168.0.156",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 1190,
+        "y": 80,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "6f6166aeeadd5e14",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "HTLiv",
+        "device": "192.168.0.101",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 1190,
+        "y": 200,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "0711468ae22abbc3",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "HTLiv",
+        "device": "192.168.0.101",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getMeterInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 330,
+        "y": 700,
+        "wires": [
+            [
+                "9f2898c125a1ce19"
+            ]
+        ]
+    },
+    {
+        "id": "81acb05ae456bc31",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "HTBed",
+        "device": "192.168.0.192",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getMeterInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 340,
+        "y": 780,
+        "wires": [
+            [
+                "b9027ad4556203e2"
+            ]
+        ]
+    },
+    {
+        "id": "630e79132d8b388b",
+        "type": "kasa",
+        "z": "7e38d721ab7dda20",
+        "name": "HTBed",
+        "device": "192.168.0.192",
+        "interval": "30000",
+        "eventInterval": "30000",
+        "payload": "getMeterInfo",
+        "payloadType": "info",
+        "debug": false,
+        "x": 1200,
+        "y": 360,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "44cf2eb2b95b65aa",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "PVForecast",
+        "pyfile": "PVForecastL2.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 690,
+        "y": 1080,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "e9a99cad1a973ba1",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "PVControl",
+        "pyfile": "PVControl.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 370,
+        "y": 960,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d",
+                "4ccd7db51a6b99c1"
+            ]
+        ]
+    },
+    {
+        "id": "5f85600d0b3eabb0",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "8b1d97f75ae72b6c"
+            ]
+        ]
+    },
+    {
+        "id": "3b2e749a3733564b",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "HT1_switch_on",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 923.75,
+        "y": 351.75,
+        "wires": [
+            [
+                "630e79132d8b388b"
+            ]
+        ]
+    },
+    {
+        "id": "09f95d8b12f1b9a1",
+        "type": "change",
+        "z": "7e38d721ab7dda20",
+        "name": "HT1_switch_off",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 926.75,
+        "y": 397.75,
+        "wires": [
+            [
+                "630e79132d8b388b"
+            ]
+        ]
+    },
+    {
+        "id": "8459cec95fd63046",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 960,
+        "wires": [
+            [
+                "e9a99cad1a973ba1"
+            ]
+        ]
+    },
+    {
+        "id": "657f9801dbfd2d4e",
+        "type": "pythonshell in",
+        "z": "7e38d721ab7dda20",
+        "name": "storm_weather",
+        "pyfile": "storm_weather.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 380,
+        "y": 1020,
+        "wires": [
+            [
+                "3651cfcb6ae5c30d"
+            ]
+        ]
+    },
+    {
+        "id": "8d8875bc48480921",
+        "type": "inject",
+        "z": "7e38d721ab7dda20",
+        "name": "",
+        "repeat": "",
+        "crontab": "00 07 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 1020,
+        "wires": [
+            [
+                "657f9801dbfd2d4e"
+            ]
+        ]
+    },
+    {
+        "id": "7615ddede19b4367",
+        "type": "comment",
+        "z": "7e38d721ab7dda20",
+        "name": " Edit the pythonshell nodes to provide the full path of the .py files!",
+        "info": "Edit the pythonshell nodes to provide the full path of the .py files!",
+        "x": 250,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "b6320b9881d4e2fc",
+        "type": "comment",
+        "z": "7e38d721ab7dda20",
+        "name": "Edit Kasa nodes to configure the IP of the smart-plugs. Check the IP on the router console.",
+        "info": "",
+        "x": 1160,
+        "y": 20,
+        "wires": []
+    }
+]
