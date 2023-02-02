@@ -1,0 +1,3 @@
+2. Layer 2 - PV-OPTIM Monitor & Control
+Prerequisites and dependencies
+PV-OPTIM Layer 2 requires Python 3 and the following libraries: pandas, numpy, scikit-learn, xgboost, matplotlib, mysql.connector, urllib, pytz;
