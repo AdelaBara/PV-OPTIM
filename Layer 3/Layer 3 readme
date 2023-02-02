@@ -1,0 +1,3 @@
+Layer 3 - PV-OPTIM Dashboard
+Prerequisites and dependencies
+PV-OPTIM Layer 3 requires Python 3 and the following libraries: pandas, numpy, scikit-learn, xgboost, matplotlib, mysql.connector, urllib, pytz, flask, flask_sqlalchemy, flask_wtf, wtforms, WTForms-Alchemy, pymysql, flask_login, flask-bcrypt;
