@@ -1,0 +1,9 @@
+Layer 1 uses the following .csv files located in the data_folder folder:
+-	weather_readings.csv  - weather records for the last 30 days;
+-	inverter_readings.csv – inverter records for the last 30 days with the same timestamp used in weather_readings.csv. 
+-	weather_forecast.csv – forecast data of the next 24 hours up to 10 days using the same parameters and metrics as in weather_readings.csv. 
+-	tariffs.csv  - tariff rates for the next 24 hours;
+-	app_list.csv – the list of the appliances that will operate the next day;
+-	app_constraints.csv – user preferences and the characteristics of the appliances.
+The templates of the .csv files including sample data can be found in the data_folder. 
+Please do not change the templates!
