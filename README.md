@@ -1,7 +1,7 @@
 # PV-OPTIM - Smart Adaptive Optimization and Control Software for Prosumers
 
-- photovoltaic system forecast 
+- PV forecast 
 - day-ahead consumption optimization
-- smart-plugs monitor and controll
+- smart-plugs monitor and control
 
 For set-up and configuration please read the PV-OPTIM Configuration Guide
