@@ -2,6 +2,7 @@
 
 import pandas as pd
 import mysql.connector
+mysql.connector.conversion.MySQLConverter._timestamp_to_mysql = mysql.connector.conversion.MySQLConverter._datetime_to_mysql
 import matplotlib as plt
 import datetime as dt
 import numpy as np
