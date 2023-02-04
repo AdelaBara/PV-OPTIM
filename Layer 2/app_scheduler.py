@@ -3,7 +3,7 @@ import sys
 import mysql.connector
 import json
 import datetime as dt
-import SASM_control
+import PVControl
 try:
     connection = mysql.connector.connect(
       host="localhost", 
@@ -29,7 +29,7 @@ params=(str_now,str_now,)
 db_local_cursor.execute(sql_schedule,params)
 res_schedule = db_local_cursor.fetchall()
 lapp_check=[]
-check_control, df_params=SASM_control.SASM_check_option(connection)
+check_control, df_params=PVControl.SASM_check_option(connection)
 for row in res_schedule:
     if row[1]==str_now:
         if row[4]=='Yes' and check_control==1: #checks the PV availability for appliance Actionable=Yes
@@ -40,7 +40,7 @@ for row in res_schedule:
         print(row[0], ":off")
 
 if len(lapp_check)>0: 
-    SASM_control.SASM(lapp_check, 'ON',str_now, connection, df_params)
+    PVControl.SASM(lapp_check, 'ON',str_now, connection, df_params)
 connection.close()
 
 
