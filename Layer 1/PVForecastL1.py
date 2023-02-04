@@ -1,5 +1,4 @@
 ''''PV-OPTIM Forecast LAYER 1 - use csv templates'''
-import mysql.connector
 import json
 import datetime as dt
 import pandas as pd
@@ -127,7 +126,6 @@ def noise_filter(y):
 
 def train_ML_models(X,y):
     '''ANTRENARE MODELE'''
-    from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=10, test_size=.1, shuffle=True)
 
     from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor, HistGradientBoostingRegressor
