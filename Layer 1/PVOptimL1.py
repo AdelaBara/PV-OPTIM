@@ -1,7 +1,6 @@
 '''PVOptim - Optimizes the day-ahead schedule based on PV forecast'''
 
 import pandas as pd
-import mysql.connector
 import matplotlib as plt
 import datetime as dt
 import numpy as np
