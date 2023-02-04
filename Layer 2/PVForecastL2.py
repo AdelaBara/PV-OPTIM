@@ -1,5 +1,6 @@
 ''''PV-OPTIM Forecast LAYER 2'''
 import mysql.connector
+mysql.connector.conversion.MySQLConverter._timestamp_to_mysql = mysql.connector.conversion.MySQLConverter._datetime_to_mysql
 import json
 import datetime as dt
 import pandas as pd
